@@ -20,68 +20,7 @@ public class ShopView {
 		
 		calculationPart(customerlist,employeelist,shoppingcartList,storelist,storagelist);
 			
-//		System.out.println(customerlist.get(0).getName()+ " select item "+storelist.get(1).getItem()+" quandity : "+5+", rate of one item "+storelist.get(1).getRate());
-//		
-//		
-//	       // calculationPart(5,storelist.get(1).getQuandity(),storelist.get(1).getRate(),storagelist.get(1).getQuandity());
-//			customerlist.get(0).setTotal(customerlist.get(0).getTotal()+totalRateOfItem);
-//			storelist.get(1).setQuandity(rem);
-//			System.out.println("Total Rate= "+customerlist.get(0).getTotal());
-//			System.out.println("Remaining quandity in store "+storelist.get(1).getQuandity());
-//			
-//		
-//System.out.println(customerlist.get(1).getName()+" select "+employeelist.get(0).getName());
-//System.out.println(customerlist.get(0).getName()+" Waiting");
-//System.out.println(customerlist.get(0).getName()+" select "+employeelist.get(1).getName());
-//System.out.println(customerlist.get(1).getName()+ " select item "+storelist.get(2).getItem()+" quandity : "+6+", rate of one item "+storelist.get(2).getRate());
-//
-//	
-//	//calculationPart(6,storelist.get(2).getQuandity(),storelist.get(2).getRate(),storagelist.get(2).getQuandity());
-//	customerlist.get(1).setTotal(customerlist.get(1).getTotal()+totalRateOfItem);
-//	storagelist.get(2).setQuandity(0);
-//	storelist.get(2).setQuandity(0);
-//	System.out.println("Total Rate= "+customerlist.get(1).getTotal());
-//	System.out.println("Remaining quandity in store "+storelist.get(2).getQuandity());
-//	System.out.println("Remaining quandity in storage "+storagelist.get(2).getQuandity());
-//	
-//
-//System.out.println(customerlist.get(0).getName()+ " select item "+storelist.get(2).getItem()+" quandity : "+6+", rate of one item "+storelist.get(2).getRate());
-//	
-//	//calculationPart(6,storelist.get(2).getQuandity(),storelist.get(2).getRate(),storagelist.get(2).getQuandity());
-//	customerlist.get(0).setTotal(customerlist.get(0).getTotal()+totalRateOfItem);
-//	storagelist.get(2).setQuandity(0);
-//	storelist.get(2).setQuandity(0);
-//	System.out.println("Total Rate= "+customerlist.get(0).getTotal());
-//	System.out.println("Remaining quandity in store "+storelist.get(2).getQuandity());
-//	System.out.println("Remaining quandity in storage "+storagelist.get(2).getQuandity());
-//	
-//System.out.println("");
-//System.out.println("");
-//System.out.println("Toatal rate of "+customerlist.get(0).getName()+" is "+customerlist.get(0).getTotal());
-//System.out.println("Shopping successfull");
-//System.out.println("");
-//System.out.println("");
-//System.out.println("Toatal rate of "+customerlist.get(1).getName()+" is "+customerlist.get(1).getTotal());
-//System.out.println("Shopping successfull");
-//System.out.println("");
-//System.out.println("");
-//
-//System.out.println(customerlist.get(2).getName()+" select "+employeelist.get(1).getName());
-//System.out.println(customerlist.get(2).getName()+ " select item "+storelist.get(1).getItem()+" quandity : "+10+", rate of one item "+storelist.get(1).getRate());
-//	
-//	//calculationPart(10,storelist.get(1).getQuandity(),storelist.get(1).getRate(),storagelist.get(1).getQuandity());
-//	customerlist.get(2).setTotal(customerlist.get(2).getTotal()+totalRateOfItem);
-//	storagelist.get(1).setQuandity(rem);
-//	storelist.get(1).setQuandity(0);
-//	System.out.println("Total Rate= "+customerlist.get(2).getTotal());
-//	System.out.println("Remaining quandity in store "+storelist.get(1).getQuandity());
-//	System.out.println("Remaining quandity in storage "+storagelist.get(1).getQuandity());
-//	
-//
-//System.out.println("");
-//System.out.println("");
-//System.out.println("Toatal rate of "+customerlist.get(2).getName()+" is "+customerlist.get(2).getTotal());
-//System.out.println("Shopping successfull");
+
 	}
 
 	public int totalRate( int i,int k ){
@@ -101,12 +40,13 @@ public class ShopView {
 		for( int i = 0 ; i <= 3 ; i++ ){
 			
 			Customer customer = customerlist.get(i);
+			
 			System.out.println(customer.getName());
-//			for( int j = 0 ; j <= 2 ; j++ ){
-				
-				for( int k  = 0 ; k <= 2 ; k++ ){
-					
+		
 				ShoppingCart shoppingcart = shoppingcartList.get(i);
+			
+				for( int k  = 0 ; k < 3 ; k++ ){
+				
 				Store store = storelist.get(k);
 				Storage storage = storagelist.get(k);
 				
@@ -124,9 +64,27 @@ public class ShopView {
 						
 					}else if(shoppingcart.getQuandity1() > store.getQuandity()){
 						
-						int b = shoppingcart.getQuandity1() - store.getQuandity();
-						rem = storage.getQuandity() - b;
-						totalRateOfItem = totalRate(shoppingcart.getQuandity1(),store.getRate());
+                        System.out.println(customer.getName()+" select "+"employee");
+						
+				        store.setQuandity(store.getQuandity()+storage.getQuandity());
+				        
+				        
+						if(shoppingcart.getQuandity3() > store.getQuandity()){
+							rem = store.getQuandity();
+							totalRateOfItem = totalRate(store.getQuandity(),store.getRate());
+						    customer.setTotal(totalRateOfItem);
+						    store.setQuandity(0);
+						
+						}else{
+							rem = store.getQuandity() - shoppingcart.getQuandity3();
+							totalRateOfItem = totalRate(shoppingcart.getQuandity3(),store.getRate());
+						    customer.setTotal(totalRateOfItem);
+						    store.setQuandity(rem);
+						}
+						storage.setQuandity(0);
+						System.out.println("Total Rate= "+ customer.getTotal());
+						System.out.println("Remaining quandity of "+store.getItem()+" in store "+store.getQuandity());
+						System.out.println("Remaining quandity of "+store.getItem()+" in storage "+storage.getQuandity());
 						
 					}
 				}else if( shoppingcart.getItem2().equals(store.getItem()) ){
@@ -141,17 +99,35 @@ public class ShopView {
 						System.out.println("Remaining quandity of "+store.getItem()+" in store "+store.getQuandity());
 						System.out.println("Remaining quandity of "+store.getItem()+" in storage "+storage.getQuandity());
 						
-					}else if(shoppingcart.getQuandity1() > store.getQuandity()){
+					}else if(shoppingcart.getQuandity2() > store.getQuandity()){
 						
-						int b = shoppingcart.getQuandity1() - store.getQuandity();
-						rem = storage.getQuandity() - b;
-						totalRateOfItem = totalRate(shoppingcart.getQuandity1(),store.getRate());
+                        System.out.println(customer.getName()+" select "+"employee");
+						
+				        store.setQuandity(store.getQuandity()+storage.getQuandity());
+				        
+				        
+						if(shoppingcart.getQuandity3() > store.getQuandity()){
+							rem = store.getQuandity();
+							totalRateOfItem = totalRate(store.getQuandity(),store.getRate());
+						    customer.setTotal(totalRateOfItem);
+						    store.setQuandity(0);
+						
+						}else{
+							rem = store.getQuandity() - shoppingcart.getQuandity3();
+							totalRateOfItem = totalRate(shoppingcart.getQuandity3(),store.getRate());
+						    customer.setTotal(totalRateOfItem);
+						    store.setQuandity(rem);
+						}
+						storage.setQuandity(0);
+						System.out.println("Total Rate= "+ customer.getTotal());
+						System.out.println("Remaining quandity of "+store.getItem()+" in store "+store.getQuandity());
+						System.out.println("Remaining quandity of "+store.getItem()+" in storage "+storage.getQuandity());
 						
 					}
 				}else if( shoppingcart.getItem3().equals(store.getItem()) ){
 					
                     if( shoppingcart.getQuandity3() <= store.getQuandity()){
-						
+                    	
 						rem = store.getQuandity() - shoppingcart.getQuandity3();
 						totalRateOfItem = totalRate(shoppingcart.getQuandity3(),store.getRate());
 						customer.setTotal(totalRateOfItem);
@@ -160,33 +136,40 @@ public class ShopView {
 						System.out.println("Remaining quandity of "+store.getItem()+" in store "+store.getQuandity());
 						System.out.println("Remaining quandity of "+store.getItem()+" in storage "+storage.getQuandity());
 						
-					}else if(shoppingcart.getQuandity1() > store.getQuandity()){
+					}else if(shoppingcart.getQuandity3() > store.getQuandity()){
 						
-						int b = shoppingcart.getQuandity1() - store.getQuandity();
-						rem = storage.getQuandity() - b;
-						totalRateOfItem = totalRate(shoppingcart.getQuandity1(),store.getRate());
+				        System.out.println(customer.getName()+" select "+"employee");
+						
+				        store.setQuandity(store.getQuandity()+storage.getQuandity());
+				        
+				        
+						if(shoppingcart.getQuandity3() > store.getQuandity()){
+							rem = store.getQuandity();
+							totalRateOfItem = totalRate(store.getQuandity(),store.getRate());
+						    customer.setTotal(totalRateOfItem);
+						    store.setQuandity(0);
+						
+						}else{
+							rem = store.getQuandity() - shoppingcart.getQuandity3();
+							totalRateOfItem = totalRate(shoppingcart.getQuandity3(),store.getRate());
+						    customer.setTotal(totalRateOfItem);
+						    store.setQuandity(rem);
+						}
+						storage.setQuandity(0);
+						System.out.println("Total Rate= "+ customer.getTotal());
+						System.out.println("Remaining quandity of "+store.getItem()+" in store "+store.getQuandity());
+						System.out.println("Remaining quandity of "+store.getItem()+" in storage "+storage.getQuandity());
 						
 					}
 				}
-//				}
+				System.out.println("");
+				
 			}
 			
+				System.out.println("Shopping is succesfull");
+				System.out.println("");
 		}
-//		if(a <= storeQuandity){
-//			
-//			rem = storeQuandity - a;
-//			totalRateOfItem = totalRate(a,storeRate);
-//		
-//	    }else if(a > storeQuandity){
-//	    	
-//	    	int b = a - storeQuandity;
-//	    	rem = storageQuandity - a;
-//	    	totalRateOfItem = totalRate(a,storeRate);
-//	    }else if(a > storageQuandity){
-//	    	
-//	    	rem = storageQuandity;
-//	    	totalRateOfItem = totalRate(rem,storeRate);
-//	    }
+
 	    }
 	public void displayDetails(ArrayList<Customer> customerlist,ArrayList<Employee> employeelist,ArrayList<Storage> storagelist,ArrayList<Store> storelist){
 		
@@ -245,11 +228,11 @@ public class ShopView {
 		
 		System.out.println("Store");
 		System.out.println("");
-		System.out.println("Item    "+"Quandity  "+"Rate");
+		System.out.println("Item      "+"Quandity    "+"Rate");
 		System.out.println("");
-		System.out.println(storelist.get(0).getItem()+"         "+storelist.get(0).getQuandity()+"          "+storelist.get(0).getRate());
-		System.out.println(storelist.get(1).getItem()+"         "+storelist.get(1).getQuandity()+"          "+storelist.get(1).getRate());
-		System.out.println(storelist.get(2).getItem()+"         "+storelist.get(2).getQuandity()+"          "+storelist.get(2).getRate());
+		System.out.println(storelist.get(0).getItem()+"       "+storelist.get(0).getQuandity()+"       "+storelist.get(0).getRate());
+		System.out.println(storelist.get(1).getItem()+"       "+storelist.get(1).getQuandity()+"        "+storelist.get(1).getRate());
+		System.out.println(storelist.get(2).getItem()+"       "+storelist.get(2).getQuandity()+"         "+storelist.get(2).getRate());
 		System.out.println("");
 		System.out.println("");
 		
